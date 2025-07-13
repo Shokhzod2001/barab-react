@@ -6,6 +6,7 @@ import { store } from "./app/store"
 import CssBaseline from "@mui/material/CssBaseline"
 import { ThemeProvider } from "@mui/material/styles"
 import theme from "./app/MaterialTheme"
+import { BrowserRouter } from "react-router-dom"
 import "./css/index.css"
 
 const container = document.getElementById("root")
@@ -18,13 +19,13 @@ if (container) {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ThemeProvider>
       </Provider>
     </StrictMode>,
   )
 } else {
-  throw new Error(
-    "Root element with ID 'root' was not found in the document. Ensure there is a corresponding HTML element with the ID 'root' in your HTML file.",
-  )
+  throw new Error("Root element not found")
 }
