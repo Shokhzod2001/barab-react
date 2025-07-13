@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom"
+import { Routes, Route, useLocation } from "react-router-dom"
 import { HomePage } from "./screens/homePage"
 import { AboutPage } from "./screens/aboutPage/About"
 import "../css/app.css"
@@ -8,39 +8,16 @@ import { ShopPage } from "./screens/shopPage"
 import { ChefPage } from "./screens/chefPage"
 import { HelpPage } from "./screens/helpPage"
 import { ContactPage } from "./screens/contactPage"
+import { HomeNavbar } from "./components/headers/HomeNavbar"
+import { OtherNavbar } from "./components/headers/OtherNavbar"
+import { Footer } from "./components/footer"
 
 export const App = () => {
+  const location = useLocation()
+  console.log("Current location:", location.pathname)
   return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">HOME</Link>
-          </li>
-          <li>
-            <Link to="/menu">MENU</Link>
-          </li>
-          <li>
-            <Link to="/about">ABOUT US</Link>
-          </li>
-          <li>
-            <Link to="/shop">SHOP</Link>
-          </li>
-          <li>
-            <Link to="/chef">OUR CHEF</Link>
-          </li>
-          <li>
-            <Link to="/help">HELP</Link>
-          </li>
-          <li>
-            <Link to="/member-page">MY PAGE</Link>
-          </li>
-          <li>
-            <Link to="/contact">CONTACT</Link>
-          </li>
-        </ul>
-      </nav>
-
+    <>
+      {location.pathname === "/" ? <HomeNavbar /> : <OtherNavbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/menu" element={<MenuPage />} />
@@ -51,6 +28,7 @@ export const App = () => {
         <Route path="/member-page" element={<UserPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
-    </div>
+      <Footer />
+    </>
   )
 }
