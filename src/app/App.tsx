@@ -1,16 +1,16 @@
 import { Routes, Route, useLocation } from "react-router-dom"
 import { HomePage } from "./screens/homePage"
 import { AboutPage } from "./screens/aboutPage/About"
-import "../css/app.css"
 import { UserPage } from "./screens/userPage"
 import { MenuPage } from "./screens/menuPage"
 import { ShopPage } from "./screens/shopPage"
 import { ChefPage } from "./screens/chefPage"
 import { HelpPage } from "./screens/helpPage"
-import { ContactPage } from "./screens/contactPage"
 import { HomeNavbar } from "./components/headers/HomeNavbar"
 import { OtherNavbar } from "./components/headers/OtherNavbar"
 import { Footer } from "./components/footer"
+import "../css/app.css"
+import "../css/navbar.css"
 
 export const App = () => {
   const location = useLocation()
@@ -26,7 +26,6 @@ export const App = () => {
         <Route path="/chef" element={<ChefPage />} />
         <Route path="/help" element={<HelpPage />} />
         <Route path="/member-page" element={<UserPage />} />
-        <Route path="/contact" element={<ContactPage />} />
       </Routes>
       <Footer />
     </>
