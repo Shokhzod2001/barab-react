@@ -11,6 +11,7 @@ import { OtherNavbar } from "./components/headers/OtherNavbar"
 import { Footer } from "./components/footer"
 import "../css/app.css"
 import "../css/navbar.css"
+import "../css/footer.css"
 
 export const App = () => {
   const location = useLocation()
