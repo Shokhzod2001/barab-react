@@ -1,8 +1,9 @@
 import { Box, Button, Container, Stack } from "@mui/material"
 import { NavLink } from "react-router-dom"
 import { useLocation } from "react-router-dom"
+import Basket from "./Basket"
 
-export function OtherNavbar() {
+export default function OtherNavbar() {
   const authMember = null
   const location = useLocation()
   const routeNames: any = {
@@ -101,7 +102,7 @@ export function OtherNavbar() {
             ) : null}
           </Stack>
           <Stack className="cartandlogin">
-            {/* BASKET */}
+            <Basket />
             {!authMember ? (
               <Box className="loginBtn">
                 <Button>Login</Button>

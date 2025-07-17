@@ -1,6 +1,6 @@
 import { Box, Container, Stack } from "@mui/material"
 
-export function Footer() {
+export default function Footer() {
   return (
     <Stack className="footer">
       <Container className="container">
