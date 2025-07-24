@@ -1,0 +1,42 @@
+export const fastFoodEvents = [
+  {
+    title: "Burger Bonanza Week",
+    desc: "50% off all premium burgers every Monday! Try our limited-edition spicy dragon burger.",
+    author: "Head Chef Rodriguez",
+    date: "Starts tomorrow",
+    location: "All locations",
+    img: "/img/burger-special.jpg",
+  },
+  {
+    title: "Late Night Happy Hour",
+    desc: "From 10 PM to midnight, enjoy 2-for-1 shakes and free fries with any sandwich purchase!",
+    author: "Night Manager Taylor",
+    date: "Daily special",
+    location: "Downtown location only",
+    img: "/img/late-night.jpg",
+  },
+  {
+    title: "Student Discount Day",
+    desc: "Flash your student ID every Wednesday for 25% off your entire order!",
+    author: "Marketing Team",
+    date: "Every Wednesday",
+    location: "All locations",
+    img: "/img/student-discount.jpg",
+  },
+  {
+    title: "New Menu Launch",
+    desc: "Try our exciting new crispy chicken sandwich lineup - 3 bold flavors to explore!",
+    author: "Product Development",
+    date: "Coming June 15th",
+    location: "Flagship location first",
+    img: "/img/new-menu.jpg",
+  },
+  {
+    title: "Family Meal Deal",
+    desc: "Feeds 4 for $20! Includes 2 sandwiches, 4 sides, 4 drinks, and a free dessert.",
+    author: "Operations Manager Kim",
+    date: "Weekend special",
+    location: "All locations",
+    img: "/img/family-meal.jpg",
+  },
+]

@@ -2,10 +2,12 @@ import Advertisement from "./Advertisement"
 import Chef from "./Chef"
 import Events from "./Events"
 import FoodCategory from "./FoodCategory"
-import History from "./History"
 import Invitation from "./Invitation"
 import PopularDishes from "./PopularDishes"
 import "../../../css/home.css"
+import "swiper/css"
+import "swiper/css/pagination"
+import "swiper/css/navigation"
 
 export default function HomePage() {
   return (
@@ -13,7 +15,6 @@ export default function HomePage() {
       <FoodCategory />
       <Invitation />
       <PopularDishes />
-      <History />
       <Chef />
       <Advertisement />
       <Events />

@@ -1,0 +1,371 @@
+.menuPage {
+  width: 100%;
+  height: 100%;
+}
+
+.menuPage .menuFrame {
+  width: 100%;
+  height: auto;
+}
+
+.menuPage .menuFrame .subtitle {
+  color: var(--Theme-color-theme-color-3, #ff9924);
+  text-align: center;
+  font-family: Bangers;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 187.5% */
+  letter-spacing: 0.96px;
+  text-transform: capitalize;
+}
+
+.menuPage .menuFrame .title {
+  margin: 0;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px; /* 118.519% */
+  text-transform: uppercase;
+}
+
+.menuPage .menuFrame .button-wrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+}
+
+.menuPage .menuFrame .button-wrapper Button:hover path {
+  fill: var(--Theme-color-theme-color-1, #eb1400);
+}
+
+.menuPage .menuFrame .button-wrapper Button .button-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 166.667% */
+  text-transform: capitalize;
+}
+
+.menuPage .menuFrame .button-wrapper Button:hover .button-text {
+  color: #ffffff;
+}
+
+/* PopularDishes */
+.menuPage .menuFrame .container .card-wrapper {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.menuPage .menuFrame .container .card-wrapper .empty-list {
+  margin: 0;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 64px; /* 118.519% */
+  text-transform: uppercase;
+}
+
+.menuPage .menuFrame .container .card-wrapper .card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  width: 270px;
+  height: 350px;
+}
+
+.menuPage .menuFrame .container .card-wrapper .card:hover path {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  fill: #3f9065;
+  transition: fill 0.3s ease; /* Optional: adds smooth transition */
+}
+
+.menuPage .menuFrame .container .card-wrapper .card .like path {
+  fill: none;
+  stroke: #3f9065;
+  transition: stroke 0.3s ease;
+}
+
+.menuPage .menuFrame .container .card-wrapper .card .popularImg {
+  position: absolute;
+  top: 60px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.menuPage .menuFrame .container .card-wrapper .card .cart {
+  top: 30px;
+  right: 7px;
+  position: absolute;
+  display: none;
+  width: 46px;
+  height: 46px;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+  border-radius: 28px;
+  background: var(--Theme-color-theme-color-2, #f1c40f);
+}
+
+.menuPage .menuFrame .container .card-wrapper .card .like {
+  position: absolute;
+  top: 85px;
+  right: 7px;
+  display: none;
+  width: 46px;
+  height: 46px;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+  border-radius: 28px;
+  background: var(--default-color-ffffff, #fff);
+}
+
+.menuPage .menuFrame .container .card-wrapper .card .price {
+  position: absolute;
+  z-index: 4;
+  bottom: 50px;
+  display: flex;
+  height: 50px;
+  padding: 18px 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  background: var(--Theme-color-theme-color-2, #f1c40f);
+  color: black;
+  transition: color 0.3s;
+}
+
+.menuPage .menuFrame .container .card-wrapper .card .cart,
+.menuPage .menuFrame .container .card-wrapper .card .like {
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+  opacity: 0;
+  transform: translateY(10px);
+}
+/* Hover effects */
+.menuPage .menuFrame .container .card-wrapper .card:hover .cart,
+.menuPage .menuFrame .container .card-wrapper .card:hover .like {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menuPage .menuFrame .container .card-wrapper .card:hover .price {
+  background: #eb1400;
+  color: white; /* Text to white */
+}
+
+.menuPage .menuFrame .container .card-wrapper .card .info .title {
+  position: absolute;
+  top: 300px;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40px; /* 142.857% */
+  text-transform: capitalize;
+}
+
+.menuPage .menuFrame .container .card-wrapper .card .info .desc {
+  position: absolute;
+  top: 340px;
+  color: var(--black-color-6-c-6-c-6-c, #6c6c6c);
+  text-align: center;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px; /* 175% */
+}
+
+.menuPage .advertisementFrame {
+  position: relative;
+}
+
+.menuPage .advertisementFrame .advertBox {
+  position: relative;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menuPage .advertisementFrame .advertBox .advertBurger img {
+  position: absolute;
+  top: 60px;
+  left: -250px;
+  width: 600px;
+  height: 700px;
+}
+
+.menuPage .advertisementFrame .advertBox .advertSandwich img {
+  position: absolute;
+  top: 60px;
+  right: -250px;
+  width: 500px;
+  height: 600px;
+}
+
+.menuPage .advertisementFrame .advertText {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 660px;
+}
+
+.menuPage .advertisementFrame .advertText p {
+  margin: 0;
+  margin-top: 120px;
+  margin-left: 75px;
+  color: var(--black-color-121212, #121212);
+  font-family: Bangers;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: 1.2px;
+}
+
+.menuPage .advertisementFrame .advertText p span {
+  color: var(--default-color-ffffff, #fff);
+  font-family: Bangers;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.menuPage .advertisementFrame .advertText .super {
+  margin: 0;
+  margin-right: 10px;
+  color: var(--default-color-ffffff, #fff);
+  font-family: "Barlow Condensed";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.menuPage .advertisementFrame .advertText .delicious {
+  margin: 0;
+  color: var(--default-color-ffffff, #fff);
+  font-family: "Barlow Condensed";
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.menuPage .advertisementFrame .advertText .burger {
+  margin: 0;
+  color: var(--black-color-121212, #121212);
+  font-family: "Barlow Condensed";
+  font-size: 100px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 114px; /* 76% */
+  text-transform: uppercase;
+}
+
+.menuPage .advertisementFrame .advertText .timeWord {
+  margin-top: 30px;
+  margin-left: 180px;
+  color: var(--default-color-ffffff, #fff);
+  font-family: "Barlow Condensed";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 48px; /* 133.333% */
+  text-transform: capitalize;
+}
+
+.menuPage .advertisementFrame .advertText .time {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menuPage .advertisementFrame .advertText .time .dotes {
+  margin-left: 20px;
+  margin-bottom: 25px;
+  margin: 0 15px 28px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuPage .advertisementFrame .advertText .time .dotes span {
+  width: 10px;
+  height: 10px;
+  background: var(--default-color-ffffff, #fff);
+  border-radius: 50%;
+  margin: 5px auto;
+}
+
+.menuPage .advertisementFrame .advertText .date .input {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: var(--default-color-ffffff, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 48px; /* 133.333% */
+  text-transform: capitalize;
+}
+
+.menuPage .advertisementFrame .advertText .date span {
+  margin-left: 20px;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 36px; /* 150% */
+  text-transform: capitalize;
+}

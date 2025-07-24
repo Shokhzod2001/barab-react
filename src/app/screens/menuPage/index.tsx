@@ -1,3 +1,12 @@
+import "../../../css/menu.css"
+import MenuAdvertisement from "./MenuAdvertisement"
+import MenuHeader from "./MenuHeader"
+
 export default function MenuPage() {
-  return <h2>MenuPage</h2>
+  return (
+    <div className="menuPage">
+      <MenuHeader />
+      <MenuAdvertisement />
+    </div>
+  )
 }
