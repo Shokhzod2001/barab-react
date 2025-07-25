@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom"
 import HomePage from "./screens/homePage"
-import AboutPage from "./screens/aboutPage/About"
+import AboutPage from "./screens/aboutPage"
 import UserPage from "./screens/userPage"
 import MenuPage from "./screens/menuPage"
 import ShopPage from "./screens/shopPage"
