@@ -1,12 +1,15 @@
+import { Routes, Route } from "react-router-dom"
 import "../../../css/menu.css"
-import MenuAdvertisement from "./MenuAdvertisement"
-import MenuHeader from "./MenuHeader"
+import RestaurantMenu from "./Menu"
+import ChosenProduct from "./ChosenProduct"
 
 export default function MenuPage() {
   return (
-    <div className="menuPage">
-      <MenuHeader />
-      <MenuAdvertisement />
+    <div className="products-page">
+      <Routes>
+        <Route path=":productId" element={<ChosenProduct />} />
+        <Route index element={<RestaurantMenu />} />
+      </Routes>
     </div>
   )
 }

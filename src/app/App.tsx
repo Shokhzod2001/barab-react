@@ -15,14 +15,14 @@ import "../css/footer.css"
 
 export const App = () => {
   const location = useLocation()
-  console.log("Current location:", location.pathname)
+
   return (
     <>
       {location.pathname === "/" ? <HomeNavbar /> : <OtherNavbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/menu" element={<MenuPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/menu/*" element={<MenuPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/chef" element={<ChefPage />} />
         <Route path="/help" element={<HelpPage />} />

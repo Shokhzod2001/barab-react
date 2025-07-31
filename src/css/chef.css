@@ -1,0 +1,353 @@
+.chefPage {
+  width: 100%;
+  height: auto;
+}
+
+.chefPage .container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chefPage .container .subtitle {
+  margin-top: 70px;
+  color: var(--Theme-color-theme-color-3, #ff9924);
+  text-align: center;
+  font-family: Bangers;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 187.5% */
+  letter-spacing: 0.96px;
+  text-transform: capitalize;
+}
+
+.chefPage .container .title {
+  margin: 0;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px; /* 118.519% */
+  text-transform: uppercase;
+}
+
+.chefPage .container .title span {
+  color: var(--Theme-color-theme-color-1, #eb1400);
+  font-family: "Barlow Condensed";
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px;
+  text-transform: uppercase;
+}
+
+.chefPage .container img {
+  margin-top: 30px;
+  width: 243px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.chefPage .container .chef-wrapper {
+  margin-top: 50px;
+  width: 95%;
+  min-height: 450px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-content: flex-start;
+  padding-bottom: 30px;
+  align-items: flex-start; /* Align items to the top */
+  row-gap: 90px; /* Add more vertical spacing between rows */
+}
+
+.chefPage .container .chef-wrapper .chefCard {
+  position: relative;
+  width: 265px;
+  height: 335px;
+  flex-shrink: 0;
+  border-radius: 200px 200px 0px 0px;
+  background: var(--fde-1-b-9, #fde1b9);
+  box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.chefPage .container .chef-wrapper .chefCard:hover {
+  background: #3f9065;
+  box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.04);
+}
+
+.chefCard:nth-child(1),
+.chefCard:nth-child(4) {
+  transform: none !important;
+}
+
+.chefPage .container .chef-wrapper .chefCard img {
+  border-radius: 40%;
+  width: 200px;
+  height: 300px;
+}
+
+.chefPage .container .chef-wrapper .chefCard .socialapps {
+  padding: 0 15px;
+  position: absolute;
+  z-index: 5;
+  bottom: 15px;
+  width: 200px;
+  height: 45px;
+  border-radius: 56px;
+  background: var(--default-color-ffffff, #fff);
+  box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.04);
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+  transform: translateY(10px);
+}
+
+.chefPage .container .chef-wrapper .chefCard:hover .socialapps {
+  display: flex;
+  transform: translateY(0);
+}
+
+.container .chef-wrapper .chefCard .socialapps div {
+  width: 30px;
+  height: 30px;
+  border: 1px solid grey;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .chef-wrapper .chefCard .socialapps div:hover {
+  width: 30px;
+  height: 30px;
+  border: 1px solid grey;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1c40f;
+}
+
+.container .chef-wrapper .chefCard .info h4 {
+  margin: 0;
+  margin-top: 10px;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40px; /* 142.857% */
+  text-transform: capitalize;
+}
+
+.container .chef-wrapper .chefCard .info p {
+  margin: 0;
+  color: var(--black-color-6-c-6-c-6-c, #6c6c6c);
+  text-align: center;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 185.714% */
+}
+
+.container .chef-wrapper .no-data {
+  position: absolute;
+  top: 400px;
+  left: 600px;
+  margin-top: 10px;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 142.857% */
+  text-transform: capitalize;
+}
+
+/* Add to your chef.css */
+.MuiPaginationItem-root {
+  font-size: 1.2rem;
+}
+
+.MuiPaginationItem-page:hover {
+  background-color: #fde1b9 !important;
+}
+
+.Mui-selected {
+  background-color: #3f9065 !important;
+  color: white !important;
+}
+
+/* Advertisement */
+.chefPage .advertisementFrame {
+  position: relative;
+}
+
+.chefPage .advertisementFrame .advertBox {
+  position: relative;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chefPage .advertisementFrame .advertBox .advertBurger img {
+  position: absolute;
+  top: 60px;
+  left: 100px;
+  width: 600px;
+  height: 700px;
+}
+
+.chefPage .advertisementFrame .advertBox .advertSandwich img {
+  position: absolute;
+  top: 60px;
+  right: -5px;
+  width: 500px;
+  height: 600px;
+}
+
+.chefPage .advertisementFrame .advertText {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 450px;
+}
+
+.chefPage .advertisementFrame .advertText p {
+  margin: 0;
+  margin-top: 120px;
+  margin-left: 75px;
+  color: var(--black-color-121212, #121212);
+  font-family: Bangers;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: 1.2px;
+}
+
+.chefPage .advertisementFrame .advertText p span {
+  color: var(--default-color-ffffff, #fff);
+  font-family: Bangers;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.chefPage .advertisementFrame .advertText .super {
+  margin: 0;
+  margin-right: 10px;
+  color: var(--default-color-ffffff, #fff);
+  font-family: "Barlow Condensed";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.chefPage .advertisementFrame .advertText .delicious {
+  margin: 0;
+  color: var(--default-color-ffffff, #fff);
+  font-family: "Barlow Condensed";
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.chefPage .advertisementFrame .advertText .burger {
+  margin: 0;
+  color: var(--black-color-121212, #121212);
+  font-family: "Barlow Condensed";
+  font-size: 100px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 114px; /* 76% */
+  text-transform: uppercase;
+}
+
+.chefPage .advertisementFrame .advertText .timeWord {
+  margin-top: 30px;
+  margin-left: 180px;
+  color: var(--default-color-ffffff, #fff);
+  font-family: "Barlow Condensed";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 48px; /* 133.333% */
+  text-transform: capitalize;
+}
+
+.chefPage .advertisementFrame .advertText .time {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.chefPage .advertisementFrame .advertText .time .dotes {
+  margin-left: 20px;
+  margin-bottom: 25px;
+  margin: 0 15px 28px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chefPage .advertisementFrame .advertText .time .dotes span {
+  width: 10px;
+  height: 10px;
+  background: var(--default-color-ffffff, #fff);
+  border-radius: 50%;
+  margin: 5px auto;
+}
+
+.chefPage .advertisementFrame .advertText .date .input {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: var(--default-color-ffffff, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 48px; /* 133.333% */
+  text-transform: capitalize;
+}
+
+.chefPage .advertisementFrame .advertText .date span {
+  margin-left: 20px;
+  color: var(--black-color-121212, #121212);
+  text-align: center;
+  font-family: "Barlow Condensed";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 36px; /* 150% */
+  text-transform: capitalize;
+}

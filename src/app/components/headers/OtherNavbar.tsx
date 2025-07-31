@@ -1,12 +1,11 @@
 import { Box, Button, Container, Stack } from "@mui/material"
-import { NavLink } from "react-router-dom"
-import { useLocation } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import Basket from "./Basket"
 
 export default function OtherNavbar() {
   const authMember = null
   const location = useLocation()
-  const routeNames: any = {
+  const routeNames: Record<string, string> = {
     "/": "Home",
     "/menu": "MENU",
     "/about": "ABOUT",
@@ -15,14 +14,23 @@ export default function OtherNavbar() {
     "/help": "HELP",
     "/member-page": "MYPAGE",
   }
-  const currentPageName = routeNames[location.pathname] || "Page"
+
+  // Get base path to handle nested routes
+  const getBasePath = (pathname: string) => {
+    const segments = pathname.split("/").filter(Boolean)
+    return segments.length > 0 ? `/${segments[0]}` : "/"
+  }
+
+  const basePath = getBasePath(location.pathname)
+  const currentPageName = routeNames[basePath] || "Page"
+
   return (
     <div className="other-header">
       <Stack className="other-navbar">
         <Container className="container">
           <Stack className="logo">
             <NavLink to="/">
-              <img src="/icons/file.svg" alt="" />
+              <img src="/icons/file.svg" alt="Home logo" />
             </NavLink>
           </Stack>
           <Stack className="link-wrapper">
@@ -32,18 +40,9 @@ export default function OtherNavbar() {
                 className={({ isActive }) =>
                   isActive ? "hover-line underline" : "hover-line"
                 }
+                end
               >
                 HOME
-              </NavLink>
-            </Box>
-            <Box className="link">
-              <NavLink
-                to="/menu"
-                className={({ isActive }) =>
-                  isActive ? "hover-line underline" : "hover-line"
-                }
-              >
-                MENU
               </NavLink>
             </Box>
             <Box className="link">
@@ -52,28 +51,43 @@ export default function OtherNavbar() {
                 className={({ isActive }) =>
                   isActive ? "hover-line underline" : "hover-line"
                 }
+                end
               >
                 ABOUT
               </NavLink>
             </Box>
-            {authMember ? (
+            <Box className="link">
+              <NavLink
+                to="/menu"
+                className={({ isActive }) =>
+                  isActive || location.pathname.startsWith("/menu/")
+                    ? "hover-line underline"
+                    : "hover-line"
+                }
+              >
+                MENU
+              </NavLink>
+            </Box>
+            {authMember && (
               <Box className="link">
                 <NavLink
                   to="/shop"
                   className={({ isActive }) =>
                     isActive ? "hover-line underline" : "hover-line"
                   }
+                  end
                 >
                   SHOP
                 </NavLink>
               </Box>
-            ) : null}
+            )}
             <Box className="link">
               <NavLink
                 to="/chef"
                 className={({ isActive }) =>
                   isActive ? "hover-line underline" : "hover-line"
                 }
+                end
               >
                 CHEF
               </NavLink>
@@ -84,34 +98,36 @@ export default function OtherNavbar() {
                 className={({ isActive }) =>
                   isActive ? "hover-line underline" : "hover-line"
                 }
+                end
               >
                 HELP
               </NavLink>
             </Box>
-            {authMember ? (
+            {authMember && (
               <Box className="link">
                 <NavLink
                   to="/member-page"
                   className={({ isActive }) =>
                     isActive ? "hover-line underline" : "hover-line"
                   }
+                  end
                 >
                   MYPAGE
                 </NavLink>
               </Box>
-            ) : null}
+            )}
           </Stack>
           <Stack className="cartandlogin">
             <Basket />
             {!authMember ? (
               <Box className="loginBtn">
                 <Button>Login</Button>
-                <img src="icons/Button.svg" alt="" />
+                <img src="/icons/Button.svg" alt="Login button" />
               </Box>
             ) : (
               <img
-                src="icons/default-user.svg"
-                alt=""
+                src="/icons/default-user.svg"
+                alt="User profile"
                 style={{ width: "50px", height: "50px", borderRadius: "24px" }}
                 aria-haspopup="true"
               />
@@ -122,21 +138,21 @@ export default function OtherNavbar() {
       <Stack className="other-main">
         <Stack className="back_image"></Stack>
         <Stack className="pizza_slice">
-          <img src="img/leg.webp" alt="" />
+          <img src="/img/leg.webp" alt="Pizza slice" />
         </Stack>
         <Stack className="dotted">
-          <img src="img/doteBack.png" alt="" />
+          <img src="/img/doteBack.png" alt="Dotted background" />
         </Stack>
 
         <Container className="container">
           <Stack className="otherShape">
-            <img src="img/otherShape.svg" alt="" />
+            <img src="/img/otherShape.svg" alt="Decorative shape" />
           </Stack>
           <Stack className="info">
             <div className="breadcrumb">
               <h1>{currentPageName}</h1>
               <div className="page-wrapper">
-                <NavLink to="/" className={"navlink"}>
+                <NavLink to="/" className="navlink">
                   Home
                 </NavLink>{" "}
                 / <p className="page">{currentPageName}</p>

@@ -35,6 +35,7 @@ export default function Basket() {
           "&:hover": {
             backgroundColor: "rgba(0, 0, 0, 0.05)",
           },
+          padding: "17px",
         }}
       >
         <Badge badgeContent={3} color="error">
