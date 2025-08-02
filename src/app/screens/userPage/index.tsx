@@ -6,7 +6,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import PhoneIcon from "@mui/icons-material/Phone"
 import LocationOnIcon from "@mui/icons-material/LocationOn"
 import "../../../css/userPage.css"
-import { Settings } from "./settings"
+import { Settings } from "./Settings"
 
 export default function UserPage() {
   // Sample data - replace with your actual data source
