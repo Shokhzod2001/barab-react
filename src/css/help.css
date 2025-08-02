@@ -1,0 +1,340 @@
+.help-page {
+  width: 100%;
+  height: auto;
+  display: flex;
+  background: #f8f8ff;
+}
+
+.help-page .help-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  flex-direction: row;
+}
+
+.help-page .help-menu {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-bottom: 1px solid #f8f8ff;
+}
+
+.help-page .help-menu .table-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.help-page .css-1gsv261 {
+  width: 75%;
+}
+
+.help-page .css-heg063-MuiTabs-flexContainer {
+  justify-content: space-between;
+}
+
+.help-page .css-19kzrtu {
+  padding-top: 24px;
+}
+
+.help-page .help-main-content {
+  width: 100%;
+  height: 1000px;
+}
+
+.help-page .rules-box {
+  padding: 24px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f5f3f0;
+  border: 1px solid #ededed;
+  box-shadow: 0px 20px 30px rgba(25, 25, 46, 0.04);
+  border-radius: 8px;
+}
+
+.rules-box .rules-frame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.rules-box .rules-frame p {
+  border-bottom: 1px solid #dddddd;
+  color: #000000;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.00938em;
+}
+
+.help-page .accordion-menu {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background: #f5f3f0;
+}
+
+.help-page .admin-letter-box {
+  width: 100%;
+  height: auto;
+}
+
+.help-page .admin-letter-box .admin-letter-container {
+  margin-top: 30px;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo {
+  position: relative;
+  padding: 20px;
+  width: 600px;
+  height: 550px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  background: var(--default-color-f-7-f-2-e-2, #f7f2e2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo h3 {
+  margin: 0;
+  margin-left: 60px;
+  color: var(--black-color-121212, #121212);
+  font-family: "Barlow Condensed";
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px; /* 118.519% */
+  text-transform: uppercase;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo h3 span {
+  color: var(--Theme-color-theme-color-1, #eb1400);
+  font-family: "Barlow Condensed";
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px;
+  text-transform: uppercase;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo p {
+  margin: 0;
+  margin-left: 20px;
+  color: var(--black-color-121212, #121212);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px; /* 175% */
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo .info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  height: 100px;
+  align-items: center;
+  gap: 24px;
+  border-radius: 80px;
+  background: var(--Default-Color-White, #fff);
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo .info .img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--Theme-color-theme-color-1, #eb1400);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo .info .data {
+  display: flex;
+  flex-direction: column;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo .info h5 {
+  margin: 0;
+  color: var(--black-color-121212, #121212);
+  font-family: "Barlow Condensed";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px; /* 160% */
+  text-transform: capitalize;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo .info p {
+  margin: 0;
+  color: var(--black-color-6-c-6-c-6-c, #6c6c6c);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px; /* 175% */
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactInfo .leaves {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  bottom: 40px;
+  right: -60px;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm {
+  margin-left: 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm h1 {
+  color: var(--black-color-121212, #121212);
+  font-family: "Barlow Condensed";
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px; /* 118.519% */
+  text-transform: uppercase;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm .form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm .form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.help-page
+  .admin-letter-box
+  .admin-letter-container
+  .contactForm
+  .form-row
+  .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm input,
+.help-page .admin-letter-box .admin-letter-container .contactForm select,
+.help-page .admin-letter-box .admin-letter-container .contactForm textarea {
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #f7f2e2;
+  font-size: 16px;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm input:focus,
+.help-page .admin-letter-box .admin-letter-container .contactForm select:focus,
+.help-page
+  .admin-letter-box
+  .admin-letter-container
+  .contactForm
+  textarea:focus {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.help-page
+  .admin-letter-box
+  .admin-letter-container
+  .contactForm
+  input::placeholder,
+.help-page
+  .admin-letter-box
+  .admin-letter-container
+  .contactForm
+  textarea::placeholder {
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm select {
+  cursor: pointer;
+  color: #7f8c8d;
+}
+
+.help-page
+  .admin-letter-box
+  .admin-letter-container
+  .contactForm
+  select
+  option {
+  background: white;
+  color: #2c3e50;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm .submit-btn {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  width: auto;
+  margin-top: 20px;
+}
+
+.help-page
+  .admin-letter-box
+  .admin-letter-container
+  .contactForm
+  .submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(231, 76, 60, 0.4);
+  background: linear-gradient(135deg, #c0392b, #a93226);
+}
+
+.help-page
+  .admin-letter-box
+  .admin-letter-container
+  .contactForm
+  .submit-btn:active {
+  transform: translateY(-1px);
+}
+
+.help-page .admin-letter-box .admin-letter-container .contactForm .icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
