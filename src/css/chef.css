@@ -86,13 +86,13 @@
   box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.04);
 }
 
-.chefCard:nth-child(1),
-.chefCard:nth-child(4) {
+.chefPage .container .chef-wrapper .chefCard:nth-child(1),
+.chefPage .container .chef-wrapper .chefCard:nth-child(4) {
   transform: none !important;
 }
 
 .chefPage .container .chef-wrapper .chefCard img {
-  border-radius: 40%;
+  border-radius: 25%;
   width: 200px;
   height: 300px;
 }

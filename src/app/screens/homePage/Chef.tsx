@@ -1,8 +1,19 @@
 import { Box, Container, Stack } from "@mui/material"
-import { useState } from "react"
+
+import { useSelector } from "react-redux"
+import { createSelector } from "reselect"
+import { retrieveTopChefs } from "./selector"
+import { serverApi } from "../../../lib/config"
+import { Member } from "../../../lib/types/member"
+
+// REDUX SELECTOR
+const TopChefsRetriever = createSelector(retrieveTopChefs, chefs => ({
+  chefs,
+}))
 
 export default function Chef() {
-  const [chefs, setChefs] = useState<number[]>([1, 2, 3, 4])
+  const { chefs } = useSelector(TopChefsRetriever)
+
   return (
     <div className="chef">
       <Container className="container">
@@ -13,10 +24,11 @@ export default function Chef() {
         <img src="/icons/greenDec.png" alt="" />
         <Stack className="chef-wrapper">
           {chefs.length !== 0 ? (
-            chefs.map((chef, index) => {
+            chefs.map((chef: Member) => {
+              const imagePath = `${serverApi}/${chef.memberImage}`
               return (
-                <Box key={index} className="chefCard">
-                  <img src="img/chef.jpg" alt="" />
+                <Box key={chef._id} className="chefCard">
+                  <img src={imagePath} alt="" />
                   <Box className="socialapps">
                     <div>
                       <i className="fa-brands fa-facebook-f"></i>
@@ -44,8 +56,8 @@ export default function Chef() {
                     </div>
                   </Box>
                   <Box className="info">
-                    <h4>Michel Clark</h4>
-                    <p>Expert Chef</p>
+                    <h4>{chef.memberNick}</h4>
+                    <p>{chef.memberDesc}</p>
                   </Box>
                 </Box>
               )

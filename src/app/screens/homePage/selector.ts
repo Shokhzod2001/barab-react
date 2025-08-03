@@ -8,7 +8,7 @@ export const retrievePopularDishes = createSelector(
   HomePage => HomePage.popularDishes,
 )
 
-export const retrieveTopUsers = createSelector(
+export const retrieveTopChefs = createSelector(
   selectHomePage,
   HomePage => HomePage.chefs,
 )

@@ -468,7 +468,7 @@
 
 .homepage .popularDishes .container .card-wrapper .card .price {
   position: absolute;
-  bottom: 117px;
+  bottom: 90px;
   display: flex;
   height: 50px;
   padding: 18px 20px;
@@ -630,7 +630,7 @@
 }
 
 .homepage .chef .container .chef-wrapper .chefCard img {
-  border-radius: 40%;
+  border-radius: 25%;
   width: 200px;
   height: 300px;
 }

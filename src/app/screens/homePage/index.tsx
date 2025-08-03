@@ -8,16 +8,24 @@ import "../../../css/home.css"
 import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
+import { useDispatch } from "react-redux"
+import { Dispatch } from "@reduxjs/toolkit"
+import { setPopularDishes, setTopChefs } from "./slice"
+import { Product } from "../../../lib/types/product"
+import { Member } from "../../../lib/types/member"
 import { useEffect } from "react"
+import ProductService from "../../services/ProductService"
+import { ProductCategory } from "../../../lib/enums/product.enum"
+import MemberService from "../../services/MemberService"
 
 // REDUX SLICE & SELECTOR
 const actionDispatch = (dispatch: Dispatch) => ({
   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
-  setChefs: (data: Member[]) => dispatch(setChefs(data)),
+  setTopChefs: (data: Member[]) => dispatch(setTopChefs(data)),
 })
 
 export default function HomePage() {
-  const { setPopularDishes, setChefs } = actionDispatch(useDispatch())
+  const { setPopularDishes, setTopChefs } = actionDispatch(useDispatch())
 
   useEffect(() => {
     // Backend server data fetch = Data
@@ -27,29 +35,24 @@ export default function HomePage() {
         page: 1,
         limit: 4,
         order: "productViews",
-        productCollection: ProductCollection.DISH,
+        productCategory: [
+          ProductCategory.BURGERS,
+          ProductCategory.CHICKEN,
+          ProductCategory.PIZZA,
+          ProductCategory.SANDWICHES,
+          ProductCategory.MEXICAN,
+        ],
       })
       .then(data => {
         setPopularDishes(data)
       })
       .catch(err => console.log(err))
 
-    product
-      .getProducts({
-        page: 1,
-        limit: 4,
-        order: "createdAt",
-      })
-      .then(data => {
-        setNewDishes(data)
-      })
-      .catch(err => console.log(err))
-
     const member = new MemberService()
     member
-      .getTopUsers()
+      .getTopChefs()
       .then(data => {
-        setChefs(data)
+        setTopChefs(data)
       })
       .catch(err => console.log(err))
   }, [])
