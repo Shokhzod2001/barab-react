@@ -9,23 +9,24 @@ export default function HomeNavbar() {
 
   // Pop-up state management
   const [showPopup, setShowPopup] = useState(false)
-  const [popupDismissed, setPopupDismissed] = useState(false)
   const [timeLeft, setTimeLeft] = useState(15 * 60) // 15 minutes in seconds
 
-  // Show pop-up after 20 seconds
+  // Check sessionStorage on component mount
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!popupDismissed) {
+    const popupShown = sessionStorage.getItem("popupShown")
+    if (!popupShown) {
+      const timer = setTimeout(() => {
         setShowPopup(true)
-      }
-    }, 20000) // 20 seconds
+        sessionStorage.setItem("popupShown", "true")
+      }, 20000) // 20 seconds
 
-    return () => clearTimeout(timer)
-  }, [popupDismissed])
+      return () => clearTimeout(timer)
+    }
+  }, []) // Empty dependency array means this runs only once on mount
 
   // Countdown timer for the offer
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null // Explicitly type the interval
+    let interval: NodeJS.Timeout | null = null
     if (showPopup && timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft(timeLeft => timeLeft - 1)
@@ -49,19 +50,16 @@ export default function HomeNavbar() {
   // Handle pop-up actions
   const handleClosePopup = () => {
     setShowPopup(false)
-    setPopupDismissed(true)
   }
 
   const handleClaimOffer = () => {
-    // Navigate to shop page with discount parameter
-    navigate("/shop?discount=25")
+    // Navigate to menu page with discount parameter
+    navigate("/menu?discount=25")
     setShowPopup(false)
-    setPopupDismissed(true)
   }
 
   const handleMaybeNext = () => {
     setShowPopup(false)
-    setPopupDismissed(true)
   }
 
   return (

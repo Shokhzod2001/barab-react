@@ -1,8 +1,38 @@
 import { Box, Button, Container, Stack } from "@mui/material"
 import { useState } from "react"
 
+import { useDispatch, useSelector } from "react-redux"
+import { Dispatch } from "@reduxjs/toolkit"
+import { createSelector } from "reselect"
+import { Product } from "../../../lib/types/product"
+import { setChosenProduct, setProducts } from "./slice"
+import { retrieveChosenProduct, retrieveProducts } from "./selector"
+import { Member } from "../../../lib/types/member"
+import { useParams } from "react-router-dom"
+import ProductService from "../../services/ProductService"
+import { serverApi } from "../../../lib/config"
+import { CartItem } from "../../../lib/types/search"
+
+// REDUX SLICE & SELECTOR
+const actionDispatch = (dispatch: Dispatch) => ({
+  setChosenProduct: (data: Product) => dispatch(setChosenProduct(data)),
+  setProducts: (data: Product[]) => dispatch(setProducts(data)),
+})
+
+// REDUX SELECTOR
+const ChosenProductRetriever = createSelector(
+  retrieveChosenProduct,
+  chosenProduct => ({
+    chosenProduct,
+  }),
+)
+
+const ProductsRetriever = createSelector(retrieveProducts, products => ({
+  products,
+}))
+
 export default function ChosenProduct() {
-  const [relatedDishes, setrelatedDishes] = useState<number[]>([1, 2, 3, 4])
+  const [relatedDishes, setRelatedDishes] = useState<number[]>([1, 2, 3, 4])
   return (
     <div className="chosenProduct">
       <Container className="container">
