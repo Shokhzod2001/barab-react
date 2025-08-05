@@ -10,7 +10,7 @@ import "swiper/css/pagination"
 import "swiper/css/navigation"
 import { useDispatch } from "react-redux"
 import { Dispatch } from "@reduxjs/toolkit"
-import { setPopularDishes, setTopChefs } from "./slice"
+import { setPopularDishes, setProducts, setTopChefs } from "./slice"
 import { Product } from "../../../lib/types/product"
 import { Member } from "../../../lib/types/member"
 import { useEffect } from "react"
@@ -22,10 +22,12 @@ import MemberService from "../../services/MemberService"
 const actionDispatch = (dispatch: Dispatch) => ({
   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
   setTopChefs: (data: Member[]) => dispatch(setTopChefs(data)),
+  setProducts: (data: Product[]) => dispatch(setProducts(data)),
 })
 
 export default function HomePage() {
-  const { setPopularDishes, setTopChefs } = actionDispatch(useDispatch())
+  const { setPopularDishes, setTopChefs, setProducts } =
+    actionDispatch(useDispatch())
 
   useEffect(() => {
     // Backend server data fetch = Data
@@ -45,6 +47,17 @@ export default function HomePage() {
       })
       .then(data => {
         setPopularDishes(data)
+      })
+      .catch(err => console.log(err))
+
+    product
+      .getProducts({
+        page: 1,
+        limit: 50,
+        order: "createdAt",
+      })
+      .then(data => {
+        setProducts(data)
       })
       .catch(err => console.log(err))
 

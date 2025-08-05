@@ -1,13 +1,13 @@
 import { Box, Button, Container, Stack } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { useDispatch, useSelector } from "react-redux"
 import { Dispatch } from "@reduxjs/toolkit"
 import { createSelector } from "reselect"
+import { useNavigate } from "react-router-dom"
 import { Product } from "../../../lib/types/product"
 import { setChosenProduct, setProducts } from "./slice"
 import { retrieveChosenProduct, retrieveProducts } from "./selector"
-import { Member } from "../../../lib/types/member"
 import { useParams } from "react-router-dom"
 import ProductService from "../../services/ProductService"
 import { serverApi } from "../../../lib/config"
@@ -32,7 +32,48 @@ const ProductsRetriever = createSelector(retrieveProducts, products => ({
 }))
 
 export default function ChosenProduct() {
-  const [relatedDishes, setRelatedDishes] = useState<number[]>([1, 2, 3, 4])
+  const { productId } = useParams<{ productId: string }>()
+  const { setChosenProduct } = actionDispatch(useDispatch())
+  const { chosenProduct } = useSelector(ChosenProductRetriever)
+  const { products } = useSelector(ProductsRetriever)
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
+  const [showDescription, setShowDescription] = useState(false)
+
+  useEffect(() => {
+    if (!productId) return
+
+    const product = new ProductService()
+    product
+      .getProduct(productId)
+      .then(data => {
+        setChosenProduct(data)
+
+        if (data?.productCategory && products) {
+          const related = products
+            .filter(
+              p =>
+                p.productCategory === data.productCategory &&
+                p._id !== data._id,
+            )
+            .slice(0, 4)
+          setRelatedProducts(related)
+        }
+      })
+      .catch(err => console.log(err))
+  }, [productId, products])
+
+  const navigate = useNavigate()
+
+  const chooseDishHandler = (id: string) => {
+    navigate(`/menu/${id}`)
+  }
+
+  const toggleDescription = () => {
+    setShowDescription(!showDescription)
+  }
+
+  if (!chosenProduct) return
+  const imagePath = `${serverApi}/${chosenProduct.productImages[0]}`
   return (
     <div className="chosenProduct">
       <Container className="container">
@@ -52,18 +93,18 @@ export default function ChosenProduct() {
                 />
               </svg>
               <div className="imageFrame">
-                <img src="/img/burgerCategory.png" alt="" />
+                <img src={imagePath} alt="" />
               </div>
             </Stack>
             <Stack className="info">
-              <h3>Italiano Pizza</h3>
+              <h3>{chosenProduct.productName}</h3>
               <p>
                 The registration fee covers access to all conference sessions,
                 workshops, networking <br /> events, exhibition areas, and
                 conference materials. Please refer to the registration <br />{" "}
                 page for a detailed breakdown of inclusions.
               </p>
-              <span>$16.00</span>
+              <span>${chosenProduct.productPrice}</span>
               <div className="line"></div>
               <Stack className="cartSections">
                 <Box className="minus">
@@ -105,7 +146,10 @@ export default function ChosenProduct() {
             </Stack>
           </Stack>
           <Stack className="desc">
-            <Box className="btn">
+            <Box
+              className={`btn ${!showDescription ? "collapsed" : ""}`}
+              onClick={toggleDescription}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="172"
@@ -122,37 +166,40 @@ export default function ChosenProduct() {
               </svg>
               <span>DESCRIPTION</span>
             </Box>
-            <Stack className="productInfo">
-              <div className="line"></div>
-              <div className="mainPart">
-                <Box className="img">
-                  <img src="/img/burgerCategory.png" alt="" />
-                </Box>
-                <Box className="text">
-                  Welcome to Restar, where culinary excellence meets exceptional
-                  service. Our restaurant is a haven for food enthusiasts
-                  seeking an elevated dining experience.
-                  <br /> Immerse yourself in a sophisticated and inviting
-                  ambiance. The carefully curated decor sets the stage for
-                  intimate dinners, celebrations, and memorable <br /> moments
-                  shared with friends and family. Indulge in a gourmet journey
-                  with a menu that showcases a fusion of flavors. Our chefs use
-                  the finest ingredients to <br /> create dishes that are not
-                  just meals but unforgettable experiences. Elevate your dining
-                  experience with our extensive selection of fine wines and
-                  expertly <br /> crafted cocktails. Each sip complements the
-                  richness of our dishes, creating a symphony of taste. <br />{" "}
-                  From crispy and golden fries to mouthwatering burgers and
-                  wraps, our menu offers a variety of fast-food favorites. Each
-                  item is crafted with quality ingredients <br /> to ensure a
-                  tasty experience with every order. Enjoy your quick meal in a
-                  casual and friendly setting. Whether you're grabbing a bite on
-                  your lunch break or <br /> stopping by for a snack, our
-                  welcoming atmosphere makes every visit enjoyable. We believe
-                  that great food shouldn't break the bank.
-                </Box>
-              </div>
-            </Stack>
+            {showDescription && (
+              <Stack className="productInfo">
+                <div className="line"></div>
+                <div className="mainPart">
+                  <Box className="img">
+                    <img src={imagePath} alt="" />
+                  </Box>
+                  <Box className="text">
+                    Welcome to Restar, where culinary excellence meets
+                    exceptional service. Our restaurant is a haven for food
+                    enthusiasts seeking an elevated dining experience.
+                    <br /> Immerse yourself in a sophisticated and inviting
+                    ambiance. The carefully curated decor sets the stage for
+                    intimate dinners, celebrations, and memorable <br /> moments
+                    shared with friends and family. Indulge in a gourmet journey
+                    with a menu that showcases a fusion of flavors. Our chefs
+                    use the finest ingredients to <br /> create dishes that are
+                    not just meals but unforgettable experiences. Elevate your
+                    dining experience with our extensive selection of fine wines
+                    and expertly <br /> crafted cocktails. Each sip complements
+                    the richness of our dishes, creating a symphony of taste.{" "}
+                    <br /> From crispy and golden fries to mouthwatering burgers
+                    and wraps, our menu offers a variety of fast-food favorites.
+                    Each item is crafted with quality ingredients <br /> to
+                    ensure a tasty experience with every order. Enjoy your quick
+                    meal in a casual and friendly setting. Whether you're
+                    grabbing a bite on your lunch break or <br /> stopping by
+                    for a snack, our welcoming atmosphere makes every visit
+                    enjoyable. We believe that great food shouldn't break the
+                    bank.
+                  </Box>
+                </div>
+              </Stack>
+            )}
           </Stack>
         </Stack>
         <Stack className="relatedProducts">
@@ -163,14 +210,18 @@ export default function ChosenProduct() {
             every item is crafted with unique house-made sauces.
           </p>
           <Stack className="card-wrapper">
-            {relatedDishes.length === 0 ? (
-              <Box className={"empty-list"}>Food Category Empty</Box>
+            {relatedProducts.length === 0 ? (
+              <Box className="empty-list">No related products found</Box>
             ) : (
-              relatedDishes.map((dish, index) => (
-                <Stack className="card" key={index}>
+              relatedProducts.map(product => (
+                <Stack
+                  className="card"
+                  key={product._id}
+                  onClick={() => chooseDishHandler(product._id)}
+                >
                   <img
-                    src="/img/burger_plate.webp"
-                    alt=""
+                    src={`${serverApi}/${product.productImages[0]}`}
+                    alt={product.productName}
                     className="popularImg"
                   />
                   <svg
@@ -185,43 +236,9 @@ export default function ChosenProduct() {
                       fill="#F7F2E2"
                     />
                   </svg>
-                  <Box className="cart">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        d="M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM17 17H9.29395C8.83288 17 8.60193 17 8.41211 16.918C8.24466 16.8456 8.09938 16.7291 7.99354 16.5805C7.8749 16.414 7.82719 16.1913 7.73274 15.7505L5.27148 4.26465C5.17484 3.81363 5.12587 3.58838 5.00586 3.41992C4.90002 3.27135 4.75477 3.15441 4.58732 3.08205C4.39746 3 4.16779 3 3.70653 3H3M6 6H18.8732C19.595 6 19.9555 6 20.1978 6.15036C20.41 6.28206 20.5653 6.48862 20.633 6.729C20.7104 7.00343 20.611 7.34996 20.411 8.04346L19.0264 12.8435C18.9068 13.2581 18.8469 13.465 18.7256 13.6189C18.6185 13.7547 18.4772 13.861 18.317 13.9263C18.1361 14 17.9211 14 17.4921 14H7.73047M8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21Z"
-                        stroke="#121212"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Box>
-                  <Box className="like">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        d="M12 7.69431C10 2.99988 3 3.49988 3 9.49991C3 15.4999 12 20.5001 12 20.5001C12 20.5001 21 15.4999 21 9.49991C21 3.49988 14 2.99988 12 7.69431Z"
-                        stroke="#3F9065"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Box>
                   <Box className="info">
-                    <p className="title">Delicious Black Burger</p>
-                    <Box className="price">$26.00</Box>
+                    <p className="title">{product.productName}</p>
+                    <Box className="price">${product.productPrice}</Box>
                   </Box>
                 </Stack>
               ))

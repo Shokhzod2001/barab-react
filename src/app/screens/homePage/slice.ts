@@ -4,6 +4,7 @@ import { HomePageState } from "../../../lib/types/screen"
 const initialState: HomePageState = {
   popularDishes: [],
   chefs: [],
+  products: [],
 }
 
 const homePageSlice = createSlice({
@@ -16,10 +17,14 @@ const homePageSlice = createSlice({
     setTopChefs: (state, action) => {
       state.chefs = action.payload
     },
+    setProducts: (state, action) => {
+      state.products = action.payload
+    },
   },
 })
 
-export const { setPopularDishes, setTopChefs } = homePageSlice.actions
+export const { setPopularDishes, setTopChefs, setProducts } =
+  homePageSlice.actions
 
 const HomePageReducer = homePageSlice.reducer
 export default HomePageReducer

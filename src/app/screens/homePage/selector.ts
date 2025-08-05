@@ -12,3 +12,8 @@ export const retrieveTopChefs = createSelector(
   selectHomePage,
   HomePage => HomePage.chefs,
 )
+
+export const retrieveProducts = createSelector(
+  selectHomePage,
+  HomePage => HomePage.products,
+)

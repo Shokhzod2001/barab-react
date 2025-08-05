@@ -2,6 +2,7 @@ import { Box, Container, Stack } from "@mui/material"
 
 import { useSelector } from "react-redux"
 import { createSelector } from "reselect"
+import { useNavigate } from "react-router-dom"
 import { retrievePopularDishes } from "./selector"
 import { Product } from "../../../lib/types/product"
 import { serverApi } from "../../../lib/config"
@@ -14,6 +15,11 @@ const PopularDishesRetriever = createSelector(
 
 export default function PopularDishes() {
   const { popularDishes } = useSelector(PopularDishesRetriever)
+  const navigate = useNavigate()
+
+  const chooseDishHandler = (id: string) => {
+    navigate(`/menu/${id}`)
+  }
   return (
     <div className="popularDishes">
       <Container className="container">
@@ -28,7 +34,11 @@ export default function PopularDishes() {
             popularDishes.map((ele: Product) => {
               const imagePath = `${serverApi}/${ele.productImages[0]}`
               return (
-                <Stack className="card" key={ele._id}>
+                <Stack
+                  className="card"
+                  key={ele._id}
+                  onClick={() => chooseDishHandler(ele._id)}
+                >
                   <img src={imagePath} alt="" className="popularImg" />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

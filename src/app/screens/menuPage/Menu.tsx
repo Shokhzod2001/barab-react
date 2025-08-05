@@ -10,12 +10,14 @@ import {
   SortOptions,
 } from "../../../lib/enums/product.enum"
 import ProductService from "../../services/ProductService"
+import { useNavigate } from "react-router-dom"
 import { serverApi } from "../../../lib/config"
 import { Product } from "../../../lib/types/product"
 import { useDispatch, useSelector } from "react-redux"
 import { createSelector, Dispatch } from "@reduxjs/toolkit"
 import { setProducts } from "./slice"
 import { retrieveProducts } from "./selector"
+import { useSearchParams } from "react-router-dom"
 
 // REDUX SLICE & SELECTOR
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -28,10 +30,17 @@ const ProductsRetriever = createSelector(retrieveProducts, products => ({
 }))
 
 const RestaurantMenu = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const urlCategory = searchParams.get("category")
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<
     ProductCategory | "ALL"
-  >("ALL")
+  >(
+    urlCategory &&
+      Object.values(ProductCategory).includes(urlCategory as ProductCategory)
+      ? (urlCategory as ProductCategory)
+      : "ALL",
+  )
   const [selectedTime, setSelectedTime] = useState<ProductTime | "ALL">("ALL")
   const [selectedSpice, setSelectedSpice] = useState<ProductSpice | "ALL">(
     "ALL",
@@ -44,22 +53,6 @@ const RestaurantMenu = () => {
 
   const { setProducts } = actionDispatch(useDispatch())
   const { products } = useSelector(ProductsRetriever)
-
-  // Map UI categories to API product collections
-  const categoryToCollectionMap: Record<string, ProductCategory> = {
-    BURGERS: ProductCategory.BURGERS,
-    CHICKEN: ProductCategory.CHICKEN,
-    PIZZA: ProductCategory.PIZZA,
-    MEXICAN: ProductCategory.MEXICAN,
-    SIDES: ProductCategory.SIDES,
-    BREAKFAST: ProductCategory.BREAKFAST,
-    SALADS: ProductCategory.SALADS,
-    APPETIZERS: ProductCategory.APPETIZERS,
-    DESSERTS: ProductCategory.DESSERTS,
-    BEVERAGES: ProductCategory.BEVERAGES,
-    SANDWICHES: ProductCategory.SANDWICHES,
-    COMBO: ProductCategory.COMBO,
-  }
 
   // Map UI sort options to API order parameters
   const mapSortOptionToOrder = (sortOption: SortOptions): string => {
@@ -88,9 +81,7 @@ const RestaurantMenu = () => {
         page: 1,
         limit: 50,
         productCategory:
-          selectedCategory !== "ALL"
-            ? categoryToCollectionMap[selectedCategory]
-            : undefined,
+          selectedCategory !== "ALL" ? selectedCategory : undefined,
         search: searchTerm,
       })
       setProducts(data)
@@ -98,6 +89,17 @@ const RestaurantMenu = () => {
 
     fetchProducts()
   }, [searchTerm, selectedCategory, sortBy])
+
+  useEffect(() => {
+    if (
+      urlCategory &&
+      Object.values(ProductCategory).includes(urlCategory as ProductCategory)
+    ) {
+      setSelectedCategory(urlCategory as ProductCategory)
+    } else {
+      setSelectedCategory("ALL")
+    }
+  }, [urlCategory])
 
   // Filter products based on client-side filters
   const filteredAndSortedProducts = useMemo(() => {
@@ -217,6 +219,12 @@ const RestaurantMenu = () => {
         className="w-full h-full object-cover"
       />
     )
+  }
+
+  const navigate = useNavigate()
+
+  const chooseDishHandler = (id: string) => {
+    navigate(`/menu/${id}`)
   }
 
   return (
@@ -431,6 +439,7 @@ const RestaurantMenu = () => {
               {filteredAndSortedProducts.map((product: Product) => (
                 <div
                   key={product._id}
+                  onClick={() => chooseDishHandler(product._id)}
                   className={`bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow ${
                     viewMode === "list" ? "flex gap-4 p-4" : "overflow-hidden"
                   }`}
