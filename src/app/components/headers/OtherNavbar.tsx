@@ -5,10 +5,32 @@ import { CartItem } from "../../../lib/types/search"
 
 interface OtherNavbarProps {
   cartItems: CartItem[]
+  onAdd: (item: CartItem) => void
+  onRemove: (item: CartItem) => void
+  onDelete: (item: CartItem) => void
+  onDeleteAll: () => void
+  setSignupOpen: (isOpen: boolean) => void
+  setLoginOpen: (isOpen: boolean) => void
+  handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void
+  anchorEl: HTMLElement | null
+  handleCloseLogout: () => void
+  // handleLogoutRequest: () => void
 }
 
 export default function OtherNavbar(props: OtherNavbarProps) {
-  const { cartItems } = props
+  const {
+    cartItems,
+    onAdd,
+    onRemove,
+    onDelete,
+    onDeleteAll,
+    setSignupOpen,
+    setLoginOpen,
+    handleLogoutClick,
+    handleCloseLogout,
+    anchorEl,
+    // handleLogoutRequest,
+  } = props
   const authMember = null
   const location = useLocation()
   const routeNames: Record<string, string> = {
@@ -124,7 +146,13 @@ export default function OtherNavbar(props: OtherNavbarProps) {
             )}
           </Stack>
           <Stack className="cartandlogin">
-            <Basket cartItems={cartItems} />
+            <Basket
+              cartItems={cartItems}
+              onAdd={onAdd}
+              onRemove={onRemove}
+              onDelete={onDelete}
+              onDeleteAll={onDeleteAll}
+            />
             {!authMember ? (
               <Box className="loginBtn">
                 <Button>Login</Button>
