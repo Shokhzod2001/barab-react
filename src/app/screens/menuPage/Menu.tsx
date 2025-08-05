@@ -18,6 +18,7 @@ import { createSelector, Dispatch } from "@reduxjs/toolkit"
 import { setProducts } from "./slice"
 import { retrieveProducts } from "./selector"
 import { useSearchParams } from "react-router-dom"
+import { CartItem } from "../../../lib/types/search"
 
 // REDUX SLICE & SELECTOR
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -29,7 +30,12 @@ const ProductsRetriever = createSelector(retrieveProducts, products => ({
   products,
 }))
 
-const RestaurantMenu = () => {
+interface RestaurantMenuProps {
+  onAdd: (item: CartItem) => void
+}
+
+const RestaurantMenu = (props: RestaurantMenuProps) => {
+  const { onAdd } = props
   const [searchParams, setSearchParams] = useSearchParams()
   const urlCategory = searchParams.get("category")
   const [searchTerm, setSearchTerm] = useState("")
@@ -175,13 +181,6 @@ const RestaurantMenu = () => {
 
     return filtered
   }, [products, selectedTime, selectedSpice, selectedSize, sortBy, priceRange])
-
-  const addToCart = (productId: string) => {
-    setCart(prev => ({
-      ...prev,
-      [productId]: (prev[productId] || 0) + 1,
-    }))
-  }
 
   const getSpiceIcon = (spice: ProductSpice | "ALL") => {
     switch (spice) {
@@ -493,11 +492,20 @@ const RestaurantMenu = () => {
                       </div>
 
                       <button
-                        onClick={() => addToCart(product._id)}
+                        onClick={e => {
+                          onAdd({
+                            _id: product._id,
+                            quantity: 1,
+                            name: product.productName,
+                            price: product.productPrice,
+                            image: product.productImages[0],
+                          })
+                          e.stopPropagation()
+                        }}
                         className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors"
                       >
                         <ShoppingCart className="w-4 h-4" />
-                        Add {cart[product._id] ? `(${cart[product._id]})` : ""}
+                        Add
                       </button>
                     </div>
 

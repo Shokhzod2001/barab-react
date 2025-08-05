@@ -6,10 +6,17 @@ import Menu from "@mui/material/Menu"
 import CancelIcon from "@mui/icons-material/Cancel"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import { useNavigate } from "react-router-dom"
+import { CartItem } from "../../../lib/types/search"
+import { serverApi } from "../../../lib/config"
 
-export default function Basket() {
+interface BasketProps {
+  cartItems: CartItem[]
+}
+
+export default function Basket(props: BasketProps) {
+  const { cartItems } = props
   const authMember = null
-  const history = useNavigate()
+  const navigate = useNavigate()
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -38,7 +45,7 @@ export default function Basket() {
           padding: "17px",
         }}
       >
-        <Badge badgeContent={3} color="error">
+        <Badge badgeContent={cartItems.length} color="error">
           <img src={"/icons/shopping_cart.svg"} style={{ width: "32px" }} />
         </Badge>
       </IconButton>
@@ -72,32 +79,45 @@ export default function Basket() {
       >
         <Stack className={"basket-frame"}>
           <Box className={"all-check-box"}>
-            <div style={{ fontWeight: 600, fontSize: "16px" }}>
-              My Cart (3 items)
-            </div>
+            {cartItems.length === 0 ? (
+              <div style={{ fontWeight: 600, fontSize: "16px" }}>
+                My Cart is empty
+              </div>
+            ) : (
+              <div style={{ fontWeight: 600, fontSize: "16px" }}>
+                My Cart Products:
+              </div>
+            )}
           </Box>
 
           <Box className={"orders-main-wrapper"}>
             <Box className={"orders-wrapper"}>
-              <Box className={"basket-info-box"}>
-                <div className={"cancel-btn"}>
-                  <CancelIcon color={"error"} fontSize="small" />
-                </div>
-                <img
-                  src={"/img/burger_plate.webp"}
-                  className={"product-img"}
-                  style={{ border: "1px solid #eee" }}
-                />
-                <span className={"product-name"}>Kebab</span>
-                <p className={"product-price"}>$10 x 1</p>
-                <Box sx={{ minWidth: 120 }}>
-                  <div className="col-2">
-                    <button className="remove">-</button>
-                    <span style={{ margin: "0 8px" }}>1</span>
-                    <button className="add">+</button>
-                  </div>
-                </Box>
-              </Box>
+              {cartItems.map((item: CartItem) => {
+                const imagePath = `${serverApi}/${item.image}`
+                return (
+                  <Box className={"basket-info-box"}>
+                    <div className={"cancel-btn"}>
+                      <CancelIcon color={"error"} fontSize="small" />
+                    </div>
+                    <img
+                      src={imagePath}
+                      className={"product-img"}
+                      style={{ border: "1px solid #eee" }}
+                    />
+                    <span className={"product-name"}>{item.name}</span>
+                    <p className={"product-price"}>
+                      ${item.price} x {item.quantity}
+                    </p>
+                    <Box sx={{ minWidth: 120 }}>
+                      <div className="col-2">
+                        <button className="remove">-</button>
+                        <span style={{ margin: "0 8px" }}>1</span>
+                        <button className="add">+</button>
+                      </div>
+                    </Box>
+                  </Box>
+                )
+              })}
             </Box>
           </Box>
           <Box className={"basket-order"}>

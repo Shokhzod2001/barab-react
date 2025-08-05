@@ -17,6 +17,7 @@ import { useEffect } from "react"
 import ProductService from "../../services/ProductService"
 import { ProductCategory } from "../../../lib/enums/product.enum"
 import MemberService from "../../services/MemberService"
+import { CartItem } from "../../../lib/types/search"
 
 // REDUX SLICE & SELECTOR
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -25,7 +26,12 @@ const actionDispatch = (dispatch: Dispatch) => ({
   setProducts: (data: Product[]) => dispatch(setProducts(data)),
 })
 
-export default function HomePage() {
+interface HomePageProps {
+  onAdd: (item: CartItem) => void
+}
+
+export default function HomePage(props: HomePageProps) {
+  const { onAdd } = props
   const { setPopularDishes, setTopChefs, setProducts } =
     actionDispatch(useDispatch())
 
@@ -73,7 +79,7 @@ export default function HomePage() {
     <div className="homepage">
       <FoodCategory />
       <Invitation />
-      <PopularDishes />
+      <PopularDishes onAdd={onAdd} />
       <Chef />
       <Advertisement />
       <Events />

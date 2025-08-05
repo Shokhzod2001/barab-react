@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { retrievePopularDishes } from "./selector"
 import { Product } from "../../../lib/types/product"
 import { serverApi } from "../../../lib/config"
+import { CartItem } from "../../../lib/types/search"
 
 // REDUX SELECTOR
 const PopularDishesRetriever = createSelector(
@@ -13,7 +14,12 @@ const PopularDishesRetriever = createSelector(
   popularDishes => ({ popularDishes }),
 )
 
-export default function PopularDishes() {
+interface PopularDishesProps {
+  onAdd: (item: CartItem) => void
+}
+
+export default function PopularDishes(props: PopularDishesProps) {
+  const { onAdd } = props
   const { popularDishes } = useSelector(PopularDishesRetriever)
   const navigate = useNavigate()
 
@@ -52,7 +58,19 @@ export default function PopularDishes() {
                       fill="white"
                     />
                   </svg>
-                  <Box className="cart">
+                  <Box
+                    className="cart"
+                    onClick={e => {
+                      onAdd({
+                        _id: ele._id,
+                        quantity: 1,
+                        name: ele.productName,
+                        price: ele.productPrice,
+                        image: ele.productImages[0],
+                      })
+                      e.stopPropagation()
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"

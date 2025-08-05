@@ -23,7 +23,6 @@ export enum ProductTime {
   BREAKFAST = "BREAKFAST",
   LUNCH = "LUNCH",
   DINNER = "DINNER",
-  ALL_DAY = "ALL_DAY",
 }
 
 export enum ProductSpice {

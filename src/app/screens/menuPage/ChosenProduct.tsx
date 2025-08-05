@@ -31,7 +31,12 @@ const ProductsRetriever = createSelector(retrieveProducts, products => ({
   products,
 }))
 
-export default function ChosenProduct() {
+interface ChosenProductProps {
+  onAdd: (item: CartItem) => void
+}
+
+export default function ChosenProduct(props: ChosenProductProps) {
+  const { onAdd } = props
   const { productId } = useParams<{ productId: string }>()
   const { setChosenProduct } = actionDispatch(useDispatch())
   const { chosenProduct } = useSelector(ChosenProductRetriever)
@@ -114,7 +119,21 @@ export default function ChosenProduct() {
                 <Box className="plus">
                   <img src="/img/plus.svg" alt="" />
                 </Box>
-                <Button className="addingCart">ADD TO CART</Button>
+                <Button
+                  className="addingCart"
+                  onClick={e => {
+                    onAdd({
+                      _id: chosenProduct._id,
+                      quantity: 1,
+                      name: chosenProduct.productName,
+                      price: chosenProduct.productPrice,
+                      image: chosenProduct.productImages[0],
+                    })
+                    e.stopPropagation()
+                  }}
+                >
+                  ADD TO CART
+                </Button>
                 <Box className="like">
                   <img src="/img/heart.svg" alt="" />
                 </Box>
