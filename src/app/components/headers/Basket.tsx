@@ -11,7 +11,7 @@ import { CartItem } from "../../../lib/types/search"
 import { Messages, serverApi } from "../../../lib/config"
 import { sweetErrorHandling } from "../../../lib/sweetAlert"
 import OrderService from "../../services/OrderService"
-// import { useGlobals } from "../../hooks/useGlobals"
+import { useGlobals } from "../../hooks/useGlobals"
 
 interface BasketProps {
   cartItems: CartItem[]
@@ -23,7 +23,7 @@ interface BasketProps {
 
 export default function Basket(props: BasketProps) {
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props
-  // const { authMember, setOrderBuilder } = useGlobals()
+  const { authMember, setOrderBuilder } = useGlobals()
   const navigate = useNavigate()
 
   const itemPrice: number = cartItems.reduce(
@@ -46,23 +46,23 @@ export default function Basket(props: BasketProps) {
     setAnchorEl(null)
   }
 
-  // const proceedOrderHandler = async () => {
-  //   try {
-  //     handleClose()
-  //     if (!authMember) throw new Error(Messages.error2)
+  const proceedOrderHandler = async () => {
+    try {
+      handleClose()
+      if (!authMember) throw new Error(Messages.error2)
 
-  //     const order = new OrderService()
-  //     await order.createOrder(cartItems)
+      const order = new OrderService()
+      await order.createOrder(cartItems)
 
-  //     onDeleteAll()
-  //     // REFRESH VIA CONTEXT
-  //     setOrderBuilder(new Date())
-  //     navigate("/orders")
-  //   } catch (err) {
-  //     console.log(err)
-  //     sweetErrorHandling(err).then()
-  //   }
-  // }
+      onDeleteAll()
+      // REFRESH VIA CONTEXT
+      setOrderBuilder(new Date())
+      navigate("/shop")
+    } catch (err) {
+      console.log(err)
+      sweetErrorHandling(err).then()
+    }
+  }
 
   return (
     <Box className={"hover-line"} style={{ marginRight: "35px" }}>
@@ -179,7 +179,7 @@ export default function Basket(props: BasketProps) {
                 Total: ${totalPrice} ({itemPrice} + {shippingCost})
               </span>
               <Button
-                // onClick={proceedOrderHandler}
+                onClick={proceedOrderHandler}
                 startIcon={<ShoppingCartIcon />}
                 variant={"contained"}
                 sx={{

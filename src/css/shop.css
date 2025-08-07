@@ -407,11 +407,21 @@
 .order-page .order-main-content .order-main-box .order-box-scroll {
   margin: 26px 117px 15px 40px;
   width: 664px;
-  height: auto;
+  height: 160px;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.order-page
+  .order-main-content
+  .order-main-box
+  .order-box-scroll::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
 }
 
 .order-page
@@ -746,11 +756,21 @@
 .order-page .order-main-content .order-process-box .order-box-scroll {
   margin: 26px 117px 15px 40px;
   width: 664px;
-  height: auto;
+  height: 160px;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.order-page
+  .order-main-content
+  .order-process-box
+  .order-box-scroll::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
 }
 
 .order-page
@@ -992,11 +1012,21 @@
 .order-page .order-main-content .order-finish-box .order-box-scroll {
   margin: 26px 117px 15px 40px;
   width: 664px;
-  height: auto;
+  height: 160px;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.order-page
+  .order-main-content
+  .order-finish-box
+  .order-box-scroll::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
 }
 
 .order-page

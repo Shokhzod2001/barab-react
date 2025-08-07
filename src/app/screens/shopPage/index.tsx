@@ -1,4 +1,4 @@
-import { useState, SyntheticEvent } from "react"
+import { useState, SyntheticEvent, useEffect } from "react"
 import { Container, Stack, Box } from "@mui/material"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
@@ -8,15 +8,61 @@ import Divider from "../../components/divider"
 import PausedOrders from "./PausedOrders"
 import ProcessOrders from "./ProcessOrders"
 import FinishedOrders from "./FinishedOrders"
+import { useDispatch } from "react-redux"
+import { Dispatch } from "@reduxjs/toolkit"
+import { setPausedOrders, setProcessOrders, setFinishedOrders } from "./slice"
+import { Order, OrderInquiry } from "../../../lib/types/order"
+import { OrderStatus } from "../../../lib/enums/order.enum"
+import OrderService from "../../services/OrderService"
+import { useGlobals } from "../../hooks/useGlobals"
+import { useNavigate } from "react-router-dom"
 import "../../../css/shop.css"
+import { serverApi } from "../../../lib/config"
+import { MemberType } from "../../../lib/enums/member.enum"
+
+// REDUX SLICE & SELECTOR
+const actionDispatch = (dispatch: Dispatch) => ({
+  setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
+  setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
+  setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
+})
 
 export default function OrdersPage() {
+  const { setPausedOrders, setProcessOrders, setFinishedOrders } =
+    actionDispatch(useDispatch())
+  const { authMember, orderBuilder } = useGlobals()
+  const navigate = useNavigate()
   const [value, setValue] = useState("1")
+  const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
+    page: 1,
+    limit: 5,
+    orderstatus: OrderStatus.PAUSE,
+  })
 
+  useEffect(() => {
+    const order = new OrderService()
+    order
+      .getMyOrders({ ...orderInquiry, orderstatus: OrderStatus.PAUSE })
+      .then(data => setPausedOrders(data))
+      .catch(err => console.log(err))
+
+    order
+      .getMyOrders({ ...orderInquiry, orderstatus: OrderStatus.PROCESS })
+      .then(data => setProcessOrders(data))
+      .catch(err => console.log(err))
+
+    order
+      .getMyOrders({ ...orderInquiry, orderstatus: OrderStatus.FINISH })
+      .then(data => setFinishedOrders(data))
+      .catch(err => console.log(err))
+  }, [orderInquiry, orderBuilder])
+
+  // HANDLERS
   const handleChange = (e: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
 
+  if (!authMember) navigate("/")
   return (
     <div className="order-page">
       <Container className="order-container">
@@ -38,8 +84,8 @@ export default function OrdersPage() {
               <Divider width="690" height="2" bg="#E0E0E7" />
             </Box>
             <Stack className="order-main-content">
-              <PausedOrders />
-              <ProcessOrders />
+              <PausedOrders setValue={setValue} />
+              <ProcessOrders setValue={setValue} />
               <FinishedOrders />
             </Stack>
           </TabContext>
@@ -47,23 +93,35 @@ export default function OrdersPage() {
         <Stack className="order-right">
           <Stack className="user-box">
             <img
-              src="/img/justin.webp"
+              src={
+                authMember?.memberImage
+                  ? `${serverApi}/${authMember.memberImage}`
+                  : "/icons/default-user.svg"
+              }
               alt="User Image"
               className="user-image"
             />
             <Box className="badge-font">
               <img
-                src="/icons/user-badge.svg"
+                src={
+                  authMember?.memberType === MemberType.RESTAURANT
+                    ? "/icons/restaurant.svg"
+                    : "/icons/user-badge.svg"
+                }
                 alt="userBadge"
                 className="user-badge"
               />
             </Box>
-            <Box className="user-name">Justin</Box>
-            <Box className="user-status">USER</Box>
+            <Box className="user-name"> {authMember?.memberNick}</Box>
+            <Box className="user-status"> {authMember?.memberType}</Box>
             <Divider width="332" height="2" bg="#A1A1A1" />
             <Stack className="adress-section">
               <LocationOnIcon />
-              <Box className="adress">South Korea, Busan</Box>
+              <Box className="adress">
+                {authMember?.memberAddress
+                  ? authMember?.memberAddress
+                  : "Do not exist"}
+              </Box>
             </Stack>
           </Stack>
           <Stack className="card-box">

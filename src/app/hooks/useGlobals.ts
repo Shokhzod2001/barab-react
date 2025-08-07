@@ -12,8 +12,8 @@ export const GlobalContext = createContext<GlobalInterface | undefined>(
   undefined,
 )
 
-// export const useGlobals = () => {
-//   const context = useContext(GlobalContext);
-//   if (context === undefined) throw new Error("useGlobals within Provider");
-//   return context;
-// };
+export const useGlobals = () => {
+  const context = useContext(GlobalContext)
+  if (context === undefined) throw new Error("useGlobals within Provider")
+  return context
+}
