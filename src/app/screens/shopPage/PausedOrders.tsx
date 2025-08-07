@@ -8,7 +8,7 @@ import { Messages, serverApi } from "../../../lib/config"
 import { Order, OrderItem, OrderUpdateInput } from "../../../lib/types/order"
 import { Product } from "../../../lib/types/product"
 import { sweetErrorHandling } from "../../../lib/sweetAlert"
-import { OrderStatus } from "../../../lib/enums/order.enum"
+import { OrderStatus, PaymentStatus } from "../../../lib/enums/order.enum"
 import { useGlobals } from "../../hooks/useGlobals"
 import OrderService from "../../services/OrderService"
 import { T } from "../../../lib/types/common"
@@ -55,24 +55,28 @@ export default function PausedOrders(props: PausedOrdersProps) {
   const processOrderHandler = async (e: T) => {
     try {
       if (!authMember) throw new Error(Messages.error2)
-      // Payment Process
 
       const orderId = e.target.value
-      const input: OrderUpdateInput = {
-        orderId: orderId,
-        orderStatus: OrderStatus.PROCESS,
-      }
-
       const confirmation = window.confirm(
-        "Do you want to proceed with the payment?",
+        "Your order will be marked as paid. An admin will verify your payment.",
       )
+
       if (confirmation) {
-        const order = new OrderService()
-        await order.updateOrder(input)
-        // => Process orders
+        const input: OrderUpdateInput = {
+          orderId: orderId,
+          orderStatus: OrderStatus.PROCESS,
+          paymentStatus: PaymentStatus.PENDING, // Mark as pending verification
+        }
+
+        const orderService = new OrderService()
+        await orderService.updateOrder(input)
+
         setValue("2")
-        // Rebuild
         setOrderBuilder(new Date())
+
+        alert(
+          "Order submitted for payment verification. You'll be notified when approved.",
+        )
       }
     } catch (err) {
       console.log(err)

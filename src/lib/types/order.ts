@@ -1,4 +1,4 @@
-import { OrderStatus } from "../enums/order.enum"
+import { OrderStatus, PaymentStatus } from "../enums/order.enum"
 import { Product } from "./product"
 
 export interface OrderItem {
@@ -22,6 +22,9 @@ export interface Order {
   // from aggregations
   orderItems: OrderItem[]
   productData: Product[]
+  paymentStatus?: PaymentStatus
+  paymentDate?: Date
+  cardNumberMasked?: string
 }
 
 export interface OrderItemInput {
@@ -40,4 +43,7 @@ export interface OrderInquiry {
 export interface OrderUpdateInput {
   orderId: string
   orderStatus: OrderStatus
+  paymentStatus?: PaymentStatus
+  paymentDate?: Date
+  cardNumberMasked?: string
 }
