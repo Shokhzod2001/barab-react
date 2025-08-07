@@ -1,10 +1,28 @@
 import { Box, Container, Stack, Pagination } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "../../../css/chef.css"
 import MenuAdvertisement from "./MenuAdvertisement"
+import { createSelector, Dispatch } from "@reduxjs/toolkit"
+import { Member } from "../../../lib/types/member"
+import { useDispatch, useSelector } from "react-redux"
+import MemberService from "../../services/MemberService"
+import { setAllChefs } from "./slice"
+import { retrieveAllChefs } from "./selector"
+import { serverApi } from "../../../lib/config"
+
+// REDUX SLICE & SELECTOR
+const actionDispatch = (dispatch: Dispatch) => ({
+  setAllChefs: (data: Member[]) => dispatch(setAllChefs(data)),
+})
+
+// REDUX SELECTOR
+const AllChefsRetriever = createSelector(retrieveAllChefs, chefs => ({
+  chefs,
+}))
 
 export default function ChefPage() {
-  const [chefs] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+  const { setAllChefs } = actionDispatch(useDispatch())
+  const { chefs } = useSelector(AllChefsRetriever)
   const [currentPage, setCurrentPage] = useState(1)
   const chefsPerPage = 8
 
@@ -21,6 +39,16 @@ export default function ChefPage() {
     setCurrentPage(value)
   }
 
+  useEffect(() => {
+    const member = new MemberService()
+    member
+      .getAllChefs()
+      .then(data => {
+        setAllChefs(data)
+      })
+      .catch(err => console.log(err))
+  }, [])
+
   return (
     <div className="chefPage">
       <Container className="container">
@@ -31,10 +59,11 @@ export default function ChefPage() {
         <img src="/icons/greenDec.png" alt="" />
         <Stack className="chef-wrapper">
           {currentChefs.length !== 0 ? (
-            currentChefs.map((chef, index) => {
+            currentChefs.map(chef => {
+              const imagePath = `${serverApi}/${chef.memberImage}`
               return (
-                <Box key={index} className="chefCard">
-                  <img src="img/chef.jpg" alt="" />
+                <Box key={chef._id} className="chefCard">
+                  <img src={imagePath} alt="" />
                   <Box className="socialapps">
                     <div>
                       <i className="fa-brands fa-facebook-f"></i>
@@ -62,8 +91,8 @@ export default function ChefPage() {
                     </div>
                   </Box>
                   <Box className="info">
-                    <h4>Michel Clark</h4>
-                    <p>Expert Chef</p>
+                    <h4>{chef.memberNick}</h4>
+                    <p>{chef.memberDesc}</p>
                   </Box>
                 </Box>
               )

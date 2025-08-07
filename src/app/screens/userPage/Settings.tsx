@@ -1,8 +1,6 @@
 import { useState } from "react"
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 import SaveIcon from "@mui/icons-material/Save"
-import EditIcon from "@mui/icons-material/Edit"
-import CloseIcon from "@mui/icons-material/Close"
 import PersonIcon from "@mui/icons-material/Person"
 import PhoneIcon from "@mui/icons-material/Phone"
 import LocationOnIcon from "@mui/icons-material/LocationOn"

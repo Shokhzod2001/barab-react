@@ -8,6 +8,7 @@ export interface AppRootState {
   homePage: HomePageState
   menuPage: MenuPageState
   ordersPage: OrdersPageState
+  chefsPage: ChefsPageState
 }
 
 // HOMEPAGE
@@ -28,4 +29,9 @@ export interface OrdersPageState {
   pausedOrders: Order[]
   processOrders: Order[]
   finishedOrders: Order[]
+}
+
+// CHEFS PAGE
+export interface ChefsPageState {
+  chefs: Member[]
 }

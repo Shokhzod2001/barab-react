@@ -26,6 +26,18 @@ class MemberService {
     }
   }
 
+  public async getAllChefs(): Promise<Member[]> {
+    try {
+      const url = this.path + "/member/chefs"
+      const result = await axios.get(url)
+
+      return result.data
+    } catch (err) {
+      console.log("Error, getAllChefs: ", err)
+      throw err
+    }
+  }
+
   public async getRestaurant(): Promise<Member> {
     try {
       const url = this.path + "/member/restaurant"
