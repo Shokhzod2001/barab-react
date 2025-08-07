@@ -9,15 +9,19 @@ interface ReservationFormData {
   time: string
   table: string
 }
+
+// Initial form state
+const initialFormState: ReservationFormData = {
+  name: "",
+  phone: "",
+  persons: "",
+  date: "",
+  time: "",
+  table: "",
+}
 export default function Reservation() {
-  const [formData, setFormData] = useState<ReservationFormData>({
-    name: "",
-    phone: "",
-    persons: "",
-    date: "",
-    time: "",
-    table: "",
-  })
+  const [formData, setFormData] =
+    useState<ReservationFormData>(initialFormState)
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -31,34 +35,27 @@ export default function Reservation() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
     try {
-      const response = await fetch("http://localhost:3009/reserve/all", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "http://localhost:3009/admin/reserve/create",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      })
+      )
 
       const data = await response.json()
-
       if (response.ok) {
-        alert(`Booking confirmed!\n\nDetails:
-        • Name: ${formData.name}
-        • Phone: ${formData.phone}
-        • ${formData.persons} ${formData.persons === "1" ? "person" : "people"}
-        • Date: ${new Date(formData.date).toLocaleDateString()}
-        • Time: ${formData.time}
-        • Table: ${formData.table}
-        
-        Thank you for your reservation!`)
+        alert("Reservation created successfully!")
+        // Reset form to initial state
+        setFormData(initialFormState)
       } else {
         alert(`Error: ${data.error}`)
       }
     } catch (error) {
-      alert("Failed to submit reservation. Please try again.")
-      console.error("Reservation error:", error)
+      alert("Failed to submit reservation")
+      console.error(error)
     }
   }
 
