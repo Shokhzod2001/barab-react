@@ -33,7 +33,6 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
   const finishOrderHandler = async (e: T) => {
     try {
       if (!authMember) throw new Error(Messages.error2)
-      // Payment Process
 
       const orderId = e.target.value
       const input: OrderUpdateInput = {
@@ -41,13 +40,11 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
         orderStatus: OrderStatus.FINISH,
       }
 
-      const confirmation = window.confirm("Have you recieved your order?")
+      const confirmation = window.confirm("Have you received your order?")
       if (confirmation) {
         const order = new OrderService()
         await order.updateOrder(input)
-        // => Process orders
         setValue("3")
-        // Rebuild
         setOrderBuilder(new Date())
       }
     } catch (err) {
@@ -59,20 +56,29 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
   return (
     <TabPanel value="2">
       <Stack>
-        {processOrders.map((order: Order) => {
+        {processOrders?.map((order: Order) => {
           return (
             <Box key={order._id} className="order-process-box">
               <Box className="order-box-scroll">
-                {order?.orderItems.map((item: OrderItem) => {
-                  const product: Product = order.productData.filter(
+                {order?.orderItems?.map((item: OrderItem) => {
+                  const product: Product | undefined = order.productData?.find(
                     (ele: Product) => item.productId === ele._id,
-                  )[0]
-                  const imagePath = `${serverApi}/${product.productImages[0]}`
+                  )
+
+                  if (!product) {
+                    console.warn(`Product not found for item ${item._id}`)
+                    return null
+                  }
+
+                  const imagePath = product?.productImages?.[0]
+                    ? `${serverApi}/${product.productImages[0]}`
+                    : "/icons/noimage-list.svg"
+
                   return (
                     <Box key={item._id} className="orders-name-price">
                       <img
                         src={imagePath}
-                        alt="lavash picture"
+                        alt={product.productName || "product image"}
                         className="order-dish-image"
                       />
                       <p className="title-dish">{product.productName}</p>
@@ -103,7 +109,7 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
                 <p className="final-words">Total</p>
                 <p className="final-numbers">${order.orderTotal}</p>
                 <p className="data-compl">
-                  {moment().format("YY-MM-DD HH:mm")}
+                  {moment(order.createdAt).format("YY-MM-DD HH:mm")}
                 </p>
 
                 <Button
@@ -119,20 +125,15 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
           )
         })}
 
-        {!processOrders ||
-          (processOrders.length === 0 && (
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              justifyContent={"center"}
-            >
-              <img
-                src="/icons/noimage-list.svg"
-                alt="No Image"
-                style={{ width: 300, height: 300 }}
-              />
-            </Box>
-          ))}
+        {(!processOrders || processOrders.length === 0) && (
+          <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+            <img
+              src="/icons/noimage-list.svg"
+              alt="No Orders"
+              style={{ width: 300, height: 300 }}
+            />
+          </Box>
+        )}
       </Stack>
     </TabPanel>
   )

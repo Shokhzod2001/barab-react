@@ -16,9 +16,9 @@ import { OrderStatus } from "../../../lib/enums/order.enum"
 import OrderService from "../../services/OrderService"
 import { useGlobals } from "../../hooks/useGlobals"
 import { useNavigate } from "react-router-dom"
-import "../../../css/shop.css"
 import { serverApi } from "../../../lib/config"
 import { MemberType } from "../../../lib/enums/member.enum"
+import "../../../css/shop.css"
 
 // REDUX SLICE & SELECTOR
 const actionDispatch = (dispatch: Dispatch) => ({

@@ -19,20 +19,27 @@ export default function FinishedOrders() {
   return (
     <TabPanel value="3">
       <Stack>
-        {finishedOrders.map((order: Order) => {
+        {finishedOrders?.map((order: Order) => {
           return (
             <Box key={order._id} className="order-finish-box">
               <Box className="order-box-scroll">
-                {order?.orderItems.map((item: OrderItem) => {
-                  const product: Product = order.productData.filter(
-                    (ele: Product) => item.productId === ele._id,
-                  )[0]
-                  const imagePath = `${serverApi}/${product.productImages[0]}`
+                {order?.orderItems?.map((item: OrderItem) => {
+                  const product: Product | undefined =
+                    order.productData?.filter(
+                      (ele: Product) => item.productId === ele._id,
+                    )[0]
+
+                  if (!product) return null
+
+                  const imagePath = product.productImages?.[0]
+                    ? `${serverApi}/${product.productImages[0]}`
+                    : "/icons/noimage-list.svg"
+
                   return (
                     <Box key={item._id} className="orders-name-price">
                       <img
                         src={imagePath}
-                        alt="lavash picture"
+                        alt="product"
                         className="order-dish-image"
                       />
                       <p className="title-dish">{product.productName}</p>
@@ -67,20 +74,15 @@ export default function FinishedOrders() {
           )
         })}
 
-        {!finishedOrders ||
-          (finishedOrders.length === 0 && (
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              justifyContent={"center"}
-            >
-              <img
-                src="/icons/noimage-list.svg"
-                alt="No Image"
-                style={{ width: 300, height: 300 }}
-              />
-            </Box>
-          ))}
+        {(!finishedOrders || finishedOrders.length === 0) && (
+          <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+            <img
+              src="/icons/noimage-list.svg"
+              alt="No Image"
+              style={{ width: 300, height: 300 }}
+            />
+          </Box>
+        )}
       </Stack>
     </TabPanel>
   )
