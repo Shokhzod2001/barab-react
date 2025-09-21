@@ -9,6 +9,7 @@ import theme from "./app/MaterialTheme"
 import { BrowserRouter } from "react-router-dom"
 import "./css/index.css"
 import ContextProvider from "./app/context/ContextProvider"
+import { SocketProvider } from "./app/context/SocketContext"
 
 const container = document.getElementById("root")
 
@@ -19,12 +20,14 @@ if (container) {
     <StrictMode>
       <Provider store={store}>
         <ContextProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </ThemeProvider>
+          <SocketProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </ThemeProvider>
+          </SocketProvider>
         </ContextProvider>
       </Provider>
     </StrictMode>,
