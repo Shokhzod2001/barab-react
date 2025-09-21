@@ -33,7 +33,7 @@ export default function ChefPage() {
 
   // Change page
   const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
+    _event: React.ChangeEvent<unknown>,
     value: number,
   ) => {
     setCurrentPage(value)

@@ -36,7 +36,7 @@ interface RestaurantMenuProps {
 
 const RestaurantMenu = (props: RestaurantMenuProps) => {
   const { onAdd } = props
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const urlCategory = searchParams.get("category")
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<
@@ -55,7 +55,6 @@ const RestaurantMenu = (props: RestaurantMenuProps) => {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 50])
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.POPULAR)
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const [cart, setCart] = useState<Record<string, number>>({})
 
   const { setProducts } = actionDispatch(useDispatch())
   const { products } = useSelector(ProductsRetriever)

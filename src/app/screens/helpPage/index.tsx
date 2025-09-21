@@ -23,7 +23,7 @@ export default function HelpPage() {
   })
 
   /** HANDLERS **/
-  const handleTabChange = (e: React.SyntheticEvent, newValue: string) => {
+  const handleTabChange = (_e: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
 

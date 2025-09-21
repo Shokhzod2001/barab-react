@@ -33,7 +33,7 @@ export default function OrdersPage() {
   const { authMember, orderBuilder } = useGlobals()
   const navigate = useNavigate()
   const [value, setValue] = useState("1")
-  const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
+  const [orderInquiry] = useState<OrderInquiry>({
     page: 1,
     limit: 5,
     orderstatus: OrderStatus.PAUSE,
@@ -58,7 +58,7 @@ export default function OrdersPage() {
   }, [orderInquiry, orderBuilder])
 
   // HANDLERS
-  const handleChange = (e: SyntheticEvent, newValue: string) => {
+  const handleChange = (_e: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
 

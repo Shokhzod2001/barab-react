@@ -29,7 +29,7 @@ const StyledModal = styled(Modal)({
   justifyContent: "center",
 })
 
-const ModalContainer = styled(Box)(({ theme }) => ({
+const ModalContainer = styled(Box)(({}) => ({
   background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
   borderRadius: "24px",
   boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
@@ -68,7 +68,7 @@ const ImageSection = styled(Box)({
   },
 })
 
-const FormSection = styled(Box)(({ theme }) => ({
+const FormSection = styled(Box)(({}) => ({
   flex: 1,
   background: "rgba(255, 255, 255, 0.95)",
   backdropFilter: "blur(20px)",
@@ -155,7 +155,7 @@ const StyledTextField = styled(TextField)({
   },
 })
 
-const StyledButton = styled(Button)(({ theme }) => ({
+const StyledButton = styled(Button)(({}) => ({
   borderRadius: "12px",
   padding: "12px 32px",
   fontSize: "16px",

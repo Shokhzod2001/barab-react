@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
+    "start:prod": "npx serve -s dist -l 80",
     "dev": "vite",
     "format:check": "prettier --check .",
     "format": "prettier --write .",

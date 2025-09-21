@@ -91,7 +91,7 @@
   height: 597px;
   flex-shrink: 0;
   aspect-ratio: 755/597;
-  background: url("public/img/invitationImg.jpg");
+  background: url("/img/invitationImg.jpg");
   background-repeat: no-repeat;
   background-size: contain;
 }
